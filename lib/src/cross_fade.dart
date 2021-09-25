@@ -21,6 +21,8 @@ class CrossFade<T> extends StatefulWidget {
   ///this function will triggered when fadeanimation triggered
   final VoidCallback? onFadeComplete;
 
+  ///the [initialData] , [data] , and [builder] is required.
+  ///the [duration] is duration of animation (defaults is 300 millisseconds)
   const CrossFade({
     Key? key,
     required this.initialData,
