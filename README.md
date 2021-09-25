@@ -11,29 +11,78 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+a package provide animation for flutter apps
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- crossfade
+    fades animation when data has changed
 
-## Getting started
+<!-- ## Getting started
 
 TODO: List prerequisites and provide or point to information on how to
-start using the package.
+start using the package. -->
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+this example usage of this packages feature. 
+
+
+# `crossfade` example
 
 ```dart
-const like = 'sample';
+import 'package:animateable/animateable.dart';
+import 'package:flutter/material.dart';
+
+class CrossFadeExample extends StatefulWidget {
+  const CrossFadeExample({Key? key}) : super(key: key);
+
+  @override
+  State<CrossFadeExample> createState() => _CrossFadeExampleState();
+}
+
+class _CrossFadeExampleState extends State<CrossFadeExample> {
+  DateTime current = DateTime.now();
+  late final Stream<String> timer;
+
+  @override
+  void initState() {
+    timer = Stream.periodic(const Duration(seconds: 1), (i) {
+      current = current.add(const Duration(seconds: 1));
+      return 'current time is ${current.hour}:${current.minute}:${current.second}';
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // ignore: avoid_unnecessary_containers
+    return Container(
+      child: StreamBuilder<String>(
+        stream: timer,
+        builder: (context, snapshot) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CrossFade<String?>(
+                initialData: 'initdata',
+                data: snapshot.data,
+                builder: (data) => Text('$data'),
+              )
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+
 ```
+
+
+
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+more information or need contacts me you can see [github profile](https://github.com/IzumiShaka-desu).
