@@ -4,13 +4,58 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This is example of implementation widget at animateable package.
 
-A few resources to get you started if this is your first Flutter project:
+# `crossfade` example
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+```dart
+import 'package:animateable/animateable.dart';
+import 'package:flutter/material.dart';
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+class CrossFadeExample extends StatefulWidget {
+  const CrossFadeExample({Key? key}) : super(key: key);
+
+  @override
+  State<CrossFadeExample> createState() => _CrossFadeExampleState();
+}
+
+class _CrossFadeExampleState extends State<CrossFadeExample> {
+  DateTime current = DateTime.now();
+  late final Stream<String> timer;
+
+  @override
+  void initState() {
+    timer = Stream.periodic(const Duration(seconds: 1), (i) {
+      current = current.add(const Duration(seconds: 1));
+      return 'current time is ${current.hour}:${current.minute}:${current.second}';
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // ignore: avoid_unnecessary_containers
+    return Container(
+      child: StreamBuilder<String>(
+        stream: timer,
+        builder: (context, snapshot) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CrossFade<String?>(
+                initialData: 'initdata',
+                data: snapshot.data,
+                builder: (data) => Text('$data'),
+              )
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+
+```
+
+
