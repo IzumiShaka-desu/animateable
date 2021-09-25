@@ -1,3 +1,7 @@
+## 0.0.3
+
+* add example and documentation
+
 ## 0.0.2
 
 * fix error
