@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
 
+///widget for provide fade animation
+///
+///when data(T) has changed
+///the [initialData] , [data] , and [builder] is required.
+///the [duration] is duration of animation (defaults is 300 millisseconds)
 class CrossFade<T> extends StatefulWidget {
+  ///initial data when widget initialized
   final T initialData;
+
+  ///listened data, when it's changed will trigger fade animation
   final T data;
+
+  ///the duration of animation (defaults is 300 millisseconds)
   final Duration duration;
+
+  ///this function will build children widget
   final Widget Function(T data) builder;
+
+  ///this function will triggered when fadeanimation triggered
   final VoidCallback? onFadeComplete;
 
   const CrossFade({
@@ -22,8 +36,13 @@ class CrossFade<T> extends StatefulWidget {
 
 class _CrossFadeState<T> extends State<CrossFade<T>>
     with SingleTickerProviderStateMixin {
+  ///controller of animation
   late final AnimationController controller;
+
+  ///animation to listen
   late final Animation<double> animation;
+
+  ///data will showed
   late T dataToShow;
 
   @override
@@ -31,8 +50,14 @@ class _CrossFadeState<T> extends State<CrossFade<T>>
     super.initState();
     dataToShow = widget.initialData;
     controller = AnimationController(vsync: this, duration: widget.duration)
+
+      ///add  controller listener
       ..addListener(() => setState(() {}))
+
+      ///add controller status listener
       ..addStatusListener((status) {
+        ///whem status completed animation controller will reversed
+        ///and when dismissed its will trigger [onFadeComplete]
         if (status == AnimationStatus.completed) {
           dataToShow = widget.data;
           controller.reverse(from: 1.0);
@@ -61,6 +86,8 @@ class _CrossFadeState<T> extends State<CrossFade<T>>
 
   @override
   void didUpdateWidget(CrossFade<T> oldWidget) {
+    ///check the widget it's updated or not
+    ///when updated it's will trigger animation controller
     super.didUpdateWidget(oldWidget);
     if (widget.data != oldWidget.data) {
       dataToShow = oldWidget.data;
