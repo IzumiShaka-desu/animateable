@@ -5,8 +5,15 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Example of animateable',
+        ),
+      ),
+      body: ListView(
+        children: [],
+      ),
     );
   }
 }
