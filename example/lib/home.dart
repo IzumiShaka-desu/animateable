@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'widgets/cross_fade_example.dart';
+
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -12,7 +14,13 @@ class Home extends StatelessWidget {
         ),
       ),
       body: ListView(
-        children: [],
+        itemExtent: 80,
+        children: const [
+          ListTile(
+            title: Text('CrossFade'),
+            subtitle: CrossFadeExample(),
+          ),
+        ],
       ),
     );
   }
