@@ -1,2 +1,2 @@
 library animateable;
-export 'src/cross_fade.dart'
+export 'src/cross_fade.dart';
