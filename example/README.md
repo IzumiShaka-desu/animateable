@@ -1,6 +1,6 @@
 # example
 
-A new Flutter project.
+this is project contain example implemetation of animateable package.
 
 ## Getting Started
 
